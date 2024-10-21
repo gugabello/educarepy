@@ -110,3 +110,5 @@ def catalogo_paciente():
 
             
 catalogo_paciente()
+
+#teste commit
