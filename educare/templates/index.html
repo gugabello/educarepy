@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Pacientes</title>
+</head>
+<body>
+    <h1>Lista de Pacientes Cadastrados</h1>
+    
+    <!-- Link para adicionar um novo paciente -->
+    <a href="{{ url_for('adicionar') }}">Adicionar Paciente</a>
+
+    <!-- Tabela com informações dos pacientes -->
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Período</th>
+            <th>Curso</th>
+            <th>Data da Última Consulta</th>
+            <th>Email</th>
+            <th>Telefone</th>
+            <th>Observações</th>
+            <th>Links</th>
+            <th>Ações</th>
+        </tr>
+        {% for paciente in pacientes %}
+        <tr>
+            <td>{{ paciente['id'] }}</td>
+            <td>{{ paciente['nome'] }}</td>
+            <td>{{ paciente['periodo'] }}</td>
+            <td>{{ paciente['curso'] }}</td>
+            <td>{{ paciente['dataDaUltimaConsulta'] }}</td>
+            <td>{{ paciente['email'] }}</td>
+            <td>{{ paciente['telefone'] }}</td>
+            <td>{{ paciente['observacoes'] }}</td>
+            <td>{{ paciente['links'] }}</td>
+            <td>
+                <a href="{{ url_for('editar', id=paciente['id']) }}">Editar</a>
+                <form action="{{ url_for('excluir', id=paciente['id']) }}" method="post" style="display:inline;">
+                    <button type="submit">Excluir</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

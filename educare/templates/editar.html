@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Paciente</title>
+</head>
+<body>
+    <h1>Editar Paciente</h1>
+    <form action="{{ url_for('editar', id=paciente['id']) }}" method="post">
+        Nome: <input type="text" name="nome" value="{{ paciente['nome'] }}" required><br>
+        Período: <input type="text" name="periodo" value="{{ paciente['periodo'] }}"><br>
+        Curso: <input type="text" name="curso" value="{{ paciente['curso'] }}"><br>
+        Data da Última Consulta: <input type="date" name="dataDaUltimaConsulta" value="{{ paciente['dataDaUltimaConsulta'] }}"><br>
+        Email: <input type="email" name="email" value="{{ paciente['email'] }}"><br>
+        Telefone: <input type="text" name="telefone" value="{{ paciente['telefone'] }}"><br>
+        Observações: <textarea name="observacoes">{{ paciente['observacoes'] }}</textarea><br>
+        Links: <input type="text" name="links" value="{{ paciente['links'] }}"><br>
+        <button type="submit">Salvar</button>
+    </form>
+    <a href="{{ url_for('index') }}">Voltar</a>
+</body>
+</html>
