@@ -118,5 +118,28 @@ def editar(id):
                 cursor.close()
                 connection.close()
 
+@app.route('/relatorio')
+def relatorio():
+    try:
+        connection = conectar()
+        if connection:
+            with connection.cursor(pymysql.cursors.DictCursor) as cursor:
+                # Exemplo: Agrupando pacientes por curso
+                cursor.execute("""
+                    SELECT 
+                        curso,
+                        COUNT(*) AS total_pacientes,
+                        MAX(dataDaUltimaConsulta) AS ultima_consulta
+                    FROM pacientes
+                    GROUP BY curso
+                """)
+                dados_relatorio = cursor.fetchall()
+            return render_template('relatorio.html', relatorio=dados_relatorio)
+    except pymysql.MySQLError as e:
+        return f"Erro ao gerar relatório: {e}"
+    finally:
+        if connection:
+            connection.close()
+
 if __name__ == '__main__':
     app.run(debug=True)

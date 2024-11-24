@@ -1,0 +1,51 @@
+/* Estilos para a tabela */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-family: Arial, sans-serif;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #4CAF50;
+    color: white;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+/* Estilos para os botões */
+button, a {
+    padding: 8px 12px;
+    font-size: 14px;
+    text-decoration: none;
+    color: white;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-adicionar {
+    background-color: #4CAF50;
+    margin-bottom: 15px;
+}
+
+.btn-editar {
+    background-color: #ffc107;
+}
+
+.btn-excluir {
+    background-color: #e74c3c;
+}
+
+/* Adiciona um hover para os botões */
+button:hover, .btn-adicionar:hover, .btn-editar:hover, .btn-excluir:hover {
+    opacity: 0.8;
+}

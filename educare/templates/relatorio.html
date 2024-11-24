@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatório de Pacientes</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9bb50;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .container {
+            background-color: #ffffe0;
+            padding: 20px 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            width: 100%;
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #333;
+            text-align: center;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f9bb50;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        .btn-voltar {
+            display: inline-block;
+            text-align: center;
+            background-color: #f9f9f9;
+            color: #333;
+            text-decoration: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            margin-top: 20px;
+        }
+
+        .btn-voltar:hover {
+            background-color: #f9bb50;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Relatório de Pacientes</h1>
+        <table>
+            <tr>
+                <th>Curso</th>
+                <th>Total de Pacientes</th>
+                <th>Última Consulta</th>
+            </tr>
+            {% for item in relatorio %}
+            <tr>
+                <td>{{ item['curso'] }}</td>
+                <td>{{ item['total_pacientes'] }}</td>
+                <td>{{ item['ultima_consulta'] }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        <a href="{{ url_for('index') }}" class="btn-voltar">Voltar</a>
+    </div>
+</body>
+</html>

@@ -1,14 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Lista de Pacientes</title>
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <title>Lista de Pacientes</title>
+        <style>
+            /* Estilos para a tabela */
+            body {
+                background-color: #ffffe0
+            }
+
+            footer {
+                text-align: center;
+                font-family: Arial, sans-serif;
+                margin-top: 350px;
+            }
+
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-top: 20px;
+                font-family: Arial, sans-serif;
+            }
+    
+            th, td {
+                padding: 10px;
+                text-align: left;
+                border-bottom: 1px solid #ddd;
+            }
+    
+            th {
+                background-color: #f0bf4c;
+                color: white;
+            }
+    
+            tr:nth-child(even) {
+                background-color: #f2f2f2;
+            }
+    
+            /* Estilos para os botões */
+            button, a {
+                padding: 8px 12px;
+                font-size: 14px;
+                text-decoration: none;
+                color: white;
+                border-radius: 3px;
+                border: none;
+                cursor: pointer;
+            }
+    
+            .btn-adicionar {
+                background-color: #f9bb50;
+                margin-bottom: 15px;
+            }
+    
+            .btn-editar {
+                background-color: #0043fc;
+                margin-top: 10px;
+            }
+    
+            .btn-excluir {
+                background-color: #e74c3c;
+                margin-top: 10px;
+            }
+
+            .btn-relatorio {
+                background-color: #f9bb50;
+                margin-bottom: 15px;
+            }
+    
+            /* Adiciona um hover para os botões */
+            button:hover, .btn-adicionar:hover, .btn-relatorio:hover, .btn-editar:hover, .btn-excluir:hover {
+                opacity: 0.8;
+            }
+        </style>
+    </head>
 <body>
     <h1>Lista de Pacientes Cadastrados</h1>
     
     <!-- Link para adicionar um novo paciente -->
-    <a href="{{ url_for('adicionar') }}">Adicionar Paciente</a>
+    <a href="{{ url_for('adicionar') }}" class="btn-adicionar">Adicionar Paciente</a>
+    <a href="{{ url_for('relatorio') }}" class="btn btn-relatorio">Gerar Relatório</a>
 
     <!-- Tabela com informações dos pacientes -->
     <table border="1">
@@ -36,13 +107,14 @@
             <td>{{ paciente['observacoes'] }}</td>
             <td>{{ paciente['links'] }}</td>
             <td>
-                <a href="{{ url_for('editar', id=paciente['id']) }}">Editar</a>
+                <a href="{{ url_for('editar', id=paciente['id']) }}" class="btn-editar">Editar</a>
                 <form action="{{ url_for('excluir', id=paciente['id']) }}" method="post" style="display:inline;">
-                    <button type="submit">Excluir</button>
+                    <button type="submit" class="btn-excluir">Excluir</button>
                 </form>
             </td>
         </tr>
         {% endfor %}
     </table>
+    <footer>CESAR SCHOOL | GESTÃO EM TECNOLOGIA DA INFORMAÇÃO | DISCIPLINA DE PROJETOS 3</footer>
 </body>
 </html>

@@ -2,21 +2,120 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Adicionar Paciente</title>
+    <style>
+        /* Estilos globais */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9bb50;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            background-color: #ffffe0;
+            padding: 20px 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #333;
+            text-align: center;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        input, textarea, button {
+            padding: 10px;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            width: 100%;
+        }
+
+        textarea {
+            resize: vertical;
+        }
+
+        button {
+            background-color: #ffffff
+            color: white;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #f9bb50;
+        }
+
+        .btn-voltar {
+            display: inline-block;
+            text-align: center;
+            background-color: #ffffff;
+            color: #333;
+            text-decoration: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            margin-top: 10px;
+        }
+
+        .btn-voltar:hover {
+            background-color: #f9bb50;
+        }
+    </style>
 </head>
 <body>
-    <h1>Adicionar Paciente</h1>
-    <form action="{{ url_for('adicionar') }}" method="post">
-        Nome: <input type="text" name="nome" required><br>
-        Período: <input type="text" name="periodo"><br>
-        Curso: <input type="text" name="curso"><br>
-        Data da Última Consulta: <input type="date" name="dataDaUltimaConsulta"><br>
-        Email: <input type="email" name="email"><br>
-        Telefone: <input type="text" name="telefone"><br>
-        Observações: <textarea name="observacoes"></textarea><br>
-        Links: <input type="text" name="links"><br>
-        <button type="submit">Salvar</button>
-    </form>
-    <a href="{{ url_for('index') }}">Voltar</a>
+    <div class="container">
+        <h1>Adicionar Paciente</h1>
+        <form action="{{ url_for('adicionar') }}" method="post">
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" name="nome" required>
+
+            <label for="periodo">Período:</label>
+            <input type="text" id="periodo" name="periodo">
+
+            <label for="curso">Curso:</label>
+            <input type="text" id="curso" name="curso">
+
+            <label for="dataDaUltimaConsulta">Data da Última Consulta:</label>
+            <input type="date" id="dataDaUltimaConsulta" name="dataDaUltimaConsulta">
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email">
+
+            <label for="telefone">Telefone:</label>
+            <input type="text" id="telefone" name="telefone">
+
+            <label for="observacoes">Observações:</label>
+            <textarea id="observacoes" name="observacoes"></textarea>
+
+            <label for="links">Links:</label>
+            <input type="text" id="links" name="links">
+
+            <button type="submit">Salvar</button>
+        </form>
+        <a href="{{ url_for('index') }}" class="btn-voltar">Voltar</a>
+    </div>
 </body>
 </html>
