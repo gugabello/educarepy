@@ -67,6 +67,16 @@
                 background-color: #f9bb50;
                 margin-bottom: 15px;
             }
+            .laudos-link {
+                color: #0043fc;
+                text-decoration: none;
+                font-weight: bold;
+            }
+
+            .laudos-link:hover {
+            color: #ff5733;
+            text-decoration: underline;/
+            }
     
             /* Adiciona um hover para os botões */
             button:hover, .btn-adicionar:hover, .btn-relatorio:hover, .btn-editar:hover, .btn-excluir:hover {
@@ -92,8 +102,8 @@
             <th>Email</th>
             <th>Telefone</th>
             <th>Observações</th>
-            <th>Links</th>
-            <th>Ações</th>
+            <th>Laudos</th>
+            <th>Ações</th> <!-- Coluna das ações (editar/excluir) sempre deve ser a última -->
         </tr>
         {% for paciente in pacientes %}
         <tr>
@@ -105,7 +115,13 @@
             <td>{{ paciente['email'] }}</td>
             <td>{{ paciente['telefone'] }}</td>
             <td>{{ paciente['observacoes'] }}</td>
-            <td>{{ paciente['links'] }}</td>
+            <td>
+                {% if paciente['laudos'] %}
+                    <a href="{{ paciente['laudos'] }}" target="_blank" class="laudos-link">Ver Laudos</a>
+                {% else %}
+                    Nenhum laudo disponível
+                {% endif %}
+            </td>           
             <td>
                 <a href="{{ url_for('editar', id=paciente['id']) }}" class="btn-editar">Editar</a>
                 <form action="{{ url_for('excluir', id=paciente['id']) }}" method="post" style="display:inline;">
@@ -115,6 +131,7 @@
         </tr>
         {% endfor %}
     </table>
+    
     <footer>CESAR SCHOOL | GESTÃO EM TECNOLOGIA DA INFORMAÇÃO | DISCIPLINA DE PROJETOS 3</footer>
 </body>
 </html>

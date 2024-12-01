@@ -42,7 +42,8 @@ def adicionar():
         email = request.form['email']
         telefone = request.form['telefone']
         observacoes = request.form['observacoes']
-        links = request.form['links']
+        laudos = request.form['laudos']
+
         
         connection = conectar()
         if connection:
@@ -51,7 +52,7 @@ def adicionar():
                 cursor.execute(
                     "INSERT INTO pacientes (nome, periodo, curso, dataDaUltimaConsulta, email, telefone, observacoes, links)"
                     "VALUES (%s, %s, %s, %s, %s, %s, %s, %s)",
-                    (nome, periodo, curso, dataDaUltimaConsulta, email, telefone, observacoes, links)
+                    (nome, periodo, curso, dataDaUltimaConsulta, email, telefone, observacoes, laudos)
                 )
                 connection.commit()
                 flash("Paciente adicionado com sucesso!")
@@ -89,17 +90,17 @@ def editar(id):
         email = request.form['email']
         telefone = request.form['telefone']
         observacoes = request.form['observacoes']
-        links = request.form['links']
+        laudos = request.form['laudos']
+
         
         if connection:
             try:
                 cursor = connection.cursor()
-                cursor.execute("""
-                    UPDATE pacientes
-                    SET nome = %s, periodo = %s, curso = %s, dataDaUltimaConsulta = %s,
-                        email = %s, telefone = %s, observacoes = %s, links = %s
-                    WHERE id = %s
-                """, (nome, periodo, curso, dataDaUltimaConsulta, email, telefone, observacoes, links, id))
+                cursor.execute(
+                    "INSERT INTO pacientes (nome, periodo, curso, dataDaUltimaConsulta, email, telefone, observacoes, laudos)"
+                    "VALUES (%s, %s, %s, %s, %s, %s, %s, %s)",
+                    (nome, periodo, curso, dataDaUltimaConsulta, email, telefone, observacoes, laudos)
+                )              
                 connection.commit()
                 flash("Paciente atualizado com sucesso!")
                 return redirect(url_for('index'))
@@ -117,6 +118,23 @@ def editar(id):
             finally:
                 cursor.close()
                 connection.close()
+
+@app.route('/laudos/<int:id>')
+def ver_laudos(id):
+    connection = conectar()
+    if connection:
+        try:
+            cursor = connection.cursor(pymysql.cursors.DictCursor)
+            cursor.execute("SELECT laudos FROM pacientes WHERE id = %s", (id,))
+            paciente = cursor.fetchone()
+            if paciente and paciente['laudos']:
+                return render_template('laudos.html', laudo_texto=paciente['laudos'])
+            else:
+                return render_template('laudos.html', laudo_texto="Nenhum laudo disponível.")
+        finally:
+            cursor.close()
+            connection.close()
+
 
 @app.route('/relatorio')
 def relatorio():
