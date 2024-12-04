@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, flash
+from flask import Flask, render_template, request, redirect, url_for, session, flash
 import pymysql
 
 app = Flask(__name__)
@@ -16,6 +16,62 @@ def conectar():
     except pymysql.MySQLError as e:
         print(f"Erro ao conectar ao MySQL: {e}")
         return None
+    
+# Rota para cadastro
+@app.route('/cadastro', methods=['GET', 'POST'])
+def cadastro():
+    if request.method == 'POST':
+        nome = request.form['nome']
+        email = request.form['email']
+        senha = request.form['senha']  # Considere usar hash para a senha
+        
+        connection = conectar()
+        if connection:
+            try:
+                cursor = connection.cursor()
+                cursor.execute("INSERT INTO usuarios (nome, email, senha) VALUES (%s, %s, %s)", (nome, email, senha))
+                connection.commit()
+                flash('Cadastro realizado com sucesso!')
+                return redirect(url_for('login'))
+            finally:
+                cursor.close()
+                connection.close()
+    return render_template('cadastro.html')
+
+
+
+@app.route('/pagina_protegida')
+def pagina_protegida():
+    if 'usuario' in session:
+        return 'Conteúdo protegido!'
+    return redirect(url_for('login'))
+
+
+# Logout
+@app.route('/logout')
+def logout():
+    session.pop('usuario', None)  # Remove a sessão do usuário
+    flash('Você saiu com sucesso!')
+    return redirect(url_for('login'))  # Redireciona de volta para a tela de login
+
+
+# Rota para login
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        email = request.form['email']
+        senha = request.form['senha']
+
+        # Lógica de autenticação simples (exemplo com dados fixos)
+        if email == 'admin@admin.com' and senha == '1234':
+            session['usuario'] = email  # Cria a sessão
+            return redirect(url_for('index'))  # Redireciona para a página inicial após o login
+        else:
+            flash('Login ou senha incorretos!')  # Mensagem de erro
+            return redirect(url_for('login'))  # Volta para a tela de login
+
+    return render_template('login.html')
+
 
 # Rota para a página inicial com a lista de pacientes
 @app.route('/')
